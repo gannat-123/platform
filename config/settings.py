@@ -23,9 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-t)3(xt1ozn4dt&h#6-02ga5anj(+2c&@ofo-f3dvb06i$)xj1$'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 CORS_ALLOW_ALL_ORIGINS = True  # للتجربة، بعدين نحددها
 ALLOWED_HOSTS = ['*']  # دلوقتي، هنعدلها بعدين
 
@@ -132,7 +132,6 @@ USE_TZ = True
 STATIC_URL = 'static/'
 
 
-
 from datetime import timedelta
 
 REST_FRAMEWORK = {
@@ -189,3 +188,16 @@ def patched_open(self):
             raise
 
 django.core.mail.backends.smtp.EmailBackend.open = patched_open
+
+
+
+import os
+
+# Static files configuration
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')] if os.path.exists(os.path.join(BASE_DIR, 'static')) else []
+
+# Media files
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
